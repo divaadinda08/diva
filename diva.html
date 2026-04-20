@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diva Adinda | Personal Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fff9f9;
+            --text-color: #4a4a4a;
+            --accent-pink: #f8c8dc;
+            --soft-purple: #e0bbe4;
+            --glass: rgba(255, 255, 255, 0.7);
+            --shadow: 0 8px 32px 0 rgba(248, 200, 220, 0.3);
+            --gradient: linear-gradient(135deg, #f8c8dc 0%, #e0bbe4 100%);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #f5f5f5;
+            --glass: rgba(45, 45, 45, 0.8);
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* --- Progress Bar --- */
+        #progress-container { position: fixed; top: 0; z-index: 9999; width: 100%; height: 4px; background: transparent; }
+        #progress-bar { height: 100%; background: var(--gradient); width: 0%; }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--glass); backdrop-filter: blur(15px); z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .logo { font-size: 1.5rem; font-weight: bold; background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 500; transition: 0.3s; }
+
+        /* --- Hero --- */
+        #hero {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; position: relative;
+        }
+        .hero-name { font-size: clamp(3rem, 10vw, 5rem); }
+        .typing-text { font-size: 1.2rem; color: #a881af; font-style: italic; min-height: 1.5rem; }
+
+        /* --- Layout Grid --- */
+        section { padding: 80px 10%; opacity: 0; transform: translateY(40px); transition: 1s ease-out; }
+        section.visible { opacity: 1; transform: translateY(0); }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 40px; }
+        .section-title::after { content: ''; display: block; width: 40px; height: 3px; background: var(--gradient); margin: 10px auto; }
+
+        .card {
+            background: var(--glass); padding: 30px; border-radius: 20px;
+            box-shadow: var(--shadow); border: 1px solid rgba(255,255,255,0.3);
+            transition: var(--transition);
+        }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+
+        /* --- About & Profil --- */
+        .about-grid { display: flex; flex-wrap: wrap; gap: 30px; align-items: center; }
+        .profile-img {
+            width: 280px; height: 380px; object-fit: cover; border-radius: 20px;
+            box-shadow: var(--shadow); border: 5px solid white; transform: rotate(-2deg);
+            transition: 0.5s;
+        }
+        .profile-img:hover { transform: rotate(0deg) scale(1.05); }
+
+        /* --- Gallery (Updated with your Photos) --- */
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        .gallery-item { position: relative; overflow: hidden; border-radius: 15px; height: 350px; background: #eee; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .cap { position: absolute; bottom: 0; width: 100%; padding: 15px; background: rgba(0,0,0,0.5); color: white; font-size: 0.8rem; }
+
+        /* --- Fun Facts Card --- */
+        .fact-card { background: var(--gradient); color: white; text-align: center; }
+
+        /* --- Floating Buttons --- */
+        .social-float { position: fixed; bottom: 30px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 2000; }
+        .btn-float { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s; }
+        .wa-btn { background: #25D366; color: white; }
+        .ig-btn { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+
+        footer { text-align: center; padding: 40px; background: var(--glass); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .about-grid { justify-content: center; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="progress-container"><div id="progress-bar"></div></div>
+
+    <div class="social-float">
+        <a href="https://wa.me/6282228046823" class="btn-float wa-btn" target="_blank">📱</a>
+        <a href="https://www.instagram.com/dyy.vaad?igsh=eXRhcGEwbmJid3Rx" class="btn-float ig-btn" target="_blank">📸</a>
+    </div>
+
+    <nav>
+        <div class="logo">DIVA.</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#lifestyle">Lifestyle</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+        </ul>
+        <button id="theme-toggle" style="background:none; border:none; cursor:pointer; font-size:1.2rem;">🌙</button>
+    </nav>
+
+    <header id="hero">
+        <h1 class="hero-name">Diva Adinda</h1>
+        <div class="typing-text" id="typewriter"></div>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <img src="diva1.jpeg" alt="Diva" class="profile-img">
+            <div class="card" style="flex:1; min-width: 300px;">
+                <p><strong>Name:</strong> Diva Adinda</p>
+                <p><strong>Birth Date:</strong> Jombang, May 8, 2006</p>
+                <p><strong>Address:</strong> Dsn Sapon, Sumberaji, Kabuh, Jombang</p>
+                <hr style="margin:15px 0; border:0; border-top:1px solid var(--accent-pink); opacity: 0.5;">
+                <p>Seorang dreamer yang percaya bahwa hidup akan lebih indah jika dijalani dengan penuh warna dan estetika.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="lifestyle">
+        <h2 class="section-title">Lifestyle</h2>
+        <div class="grid-container">
+            <div class="card">
+                <h3>💖 Likes</h3>
+                <p>Seblak, Mie Ayam, Bakso</p>
+            </div>
+            <div class="card">
+                <h3>🚫 Dislikes</h3>
+                <p>Nasi Padang, Matcha, Durian</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="facts">
+        <h2 class="section-title">Fun Facts</h2>
+        <div class="grid-container">
+            <div class="card fact-card">
+                <h3>🔄 Directions</h3>
+                <p>Sering bingung bedain kiri & kanan secara mendadak!</p>
+            </div>
+            <div class="card fact-card">
+                <h3>📍 Navigation</h3>
+                <p>Susah hafal jalan, butuh Google Maps ke mana-mana.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2 class="section-title">Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="diva2.jpeg" alt="Bromo">
+                <div class="cap">Refreshing at Bromo 🏔️</div>
+            </div>
+            <div class="gallery-item">
+                <img src="diva3.jpeg" alt="School">
+                <div class="cap">School Circle 🏫</div>
+            </div>
+            <div class="gallery-item">
+                <img src="diva1.jpeg" alt="Profile">
+                <div class="cap">Just Me ✨</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>"Stay aesthetic, stay you."</p>
+        <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 10px;">&copy; 2026 Diva Adinda.</p>
+    </footer>
+
+    <script>
+        // Fitur Typewriter (Tetap Ada)
+        const texts = ["Aesthetic Girl", "Jombang Pride", "Dreamer"];
+        let count = 0; let index = 0; let currentText = ""; let letter = "";
+        (function type() {
+            if (count === texts.length) count = 0;
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+            document.getElementById("typewriter").textContent = letter;
+            if (letter.length === currentText.length) {
+                count++; index = 0;
+                setTimeout(type, 2000);
+            } else {
+                setTimeout(type, 150);
+            }
+        }());
+
+        // Fitur Dark Mode (Tetap Ada)
+        const btn = document.getElementById('theme-toggle');
+        btn.onclick = () => {
+            if(document.body.hasAttribute('data-theme')) {
+                document.body.removeAttribute('data-theme');
+                btn.textContent = '🌙';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                btn.textContent = '☀️';
+            }
+        };
+
+        // Scroll Progress & Reveal (Tetap Ada)
+        window.onscroll = () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById("progress-bar").style.width = (winScroll / height) * 100 + "%";
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>
